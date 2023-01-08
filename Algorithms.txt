@@ -1,0 +1,24 @@
+/**
+Author-Rishabh_yaduwanshi
+**/
+1.Floyd Warshall Algortihm
+-----------------------------------------------------------------
+Algorithm 1
+public static floydWarshallAlgo(int[][] graph){
+	int n=graph.length
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			for(int k=0;k<n;k++){
+				if(graph[j][i]+graph[i][k]<graph[j][k])
+				graph[j][k]=graph[j][i]+graph[i][k];
+			}
+		}
+	}
+}
+-----------------------------------------------------------------
+Explaination 1
+floyd warshall Algo's time complexity is O(n^3)
+in this algorithm we start by checking if the direct edge between two vertices is costlier than passing through a middle node those who satisy the condition
+are updated signifying the fact that yes there exist a cheaper path.
+now we start checking for other vertices as they can provide cheaper route between two nodes.here we trust the current node that it is cheapest and check if passing through some other
+node can make the cost between current and source node more cheaper and even if the cost to reach current node reduces in the past it will be updated for the source node too.
