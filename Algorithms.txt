@@ -1,7 +1,8 @@
 /**
 Author-Rishabh_yaduwanshi
 **/
-1.Floyd Warshall Algortihm
+1.Floyd-Warshall Algortihm
+2.Bellman-Ford Algorithm
 -----------------------------------------------------------------
 Algorithm 1
 public static floydWarshallAlgo(int[][] graph){
@@ -15,10 +16,31 @@ public static floydWarshallAlgo(int[][] graph){
 		}
 	}
 }
+Algorithm 2
+public static int[] bellmanFord(int noOfVertices, ArrayList<ArrayList<Integer>> edges, int source) {
+        int []weights=new int[noOfVertices];
+        Arrays.fill(weights,(int)1e8);// take any hight value which doesn't cause integer overflow
+        weights[source]=0;
+        for(int i=0;i<noOfVertices-1;i++){
+            for(ArrayList<Integer> edge:edges){
+                if(weights[edge.get(0)]+edge.get(2)<weights[edge.get(1)]){
+                    weights[edge.get(1)]=weights[edge.get(0)]+edge.get(2);
+                }
+            }
+        }
+        for(ArrayList<Integer> edge:edges){
+            if(weights[edge.get(0)]+edge.get(2)<weights[edge.get(1)]) return new int[]{-1};
+        }
+        return weights;
+    }
 -----------------------------------------------------------------
 Explaination 1
-floyd warshall Algo's time complexity is O(n^3)
+floyd warshall Algo's time complexity is O(n^3) it also helps in finding negative cycles
 in this algorithm we start by checking if the direct edge between two vertices is costlier than passing through a middle node those who satisy the condition
 are updated signifying the fact that yes there exist a cheaper path.
 now we start checking for other vertices as they can provide cheaper route between two nodes.here we trust the current node that it is cheapest and check if passing through some other
 node can make the cost between current and source node more cheaper and even if the cost to reach current node reduces in the past it will be updated for the source node too.
+Explaination 2
+The main goal of Bellman-Ford algorithm is to find negative cycles in the graph. and it's time complexity is O((V-1)*E)
+the main goal is to relax but it also tells how many times we should relax as relaxation depends upon previously visited nodes for a graph,in worst case edges provided are such that 
+graph relaxation starts to built up from end of the edges list. so each relaxation in next loop builds on previous one so in worst case we may end up having a single path of V nodes.
